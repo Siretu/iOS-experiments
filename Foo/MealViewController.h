@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController<UITextFieldDelegate, UIImagePickerControllerDelegate>
+@interface MealViewController : UIViewController<UITextFieldDelegate, UIImagePickerControllerDelegate>
 
 
 @end

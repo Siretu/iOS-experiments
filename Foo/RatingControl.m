@@ -10,11 +10,7 @@
 
 @implementation RatingControl
 
-// MARK: Properties
 
-int rating = 0;
-int spacing = 30;
-int stars = 5;
 NSMutableArray *ratingButtons;
 
 // MARK: Initialization
@@ -22,22 +18,25 @@ NSMutableArray *ratingButtons;
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self) {
+        _rating = 0;
+        _spacing = 5;
+        _stars = 5;
         ratingButtons = [[NSMutableArray alloc] init];
         UIImage* filledStarImage = [UIImage imageNamed:@"filledStar"];
         UIImage* emptyStarImage = [UIImage imageNamed:@"emptyStar"];
         
-        for (int i = 0; i < stars; ++i) {
+        for (int i = 0; i < _stars; ++i) {
             UIButton* button = [[UIButton alloc] init];
             [button setImage:emptyStarImage forState:UIControlStateNormal];
             [button setImage:filledStarImage forState:UIControlStateSelected];
             [button setImage:filledStarImage forState:UIControlStateSelected | UIControlStateHighlighted];
             [button setAdjustsImageWhenHighlighted:NO];
             
-            
             ratingButtons[i] = button;
             [self addSubview:button];
             [button addTarget:self action:@selector(ratingButtonTapped:) forControlEvents:UIControlEventTouchDown];
         }
+        [self layoutSubviews];
     }
     return self;
 }
@@ -47,18 +46,24 @@ NSMutableArray *ratingButtons;
     int buttonSize = self.frame.size.height;
     
     CGRect buttonFrame = CGRectMake(0, 0, buttonSize, buttonSize);
-    
+
     // Offset each button's origin by the length of the button plus spacing.
     for (int i = 0; i < [ratingButtons count]; ++i) {
         UIButton* button = ratingButtons[i];
-        buttonFrame.origin.x = i * (buttonSize + spacing);
+        buttonFrame.origin.x = i * (buttonSize + _spacing);
         button.frame = buttonFrame;
     }
 }
 
+- (void)setRating:(int)rating {
+    _rating = rating;
+    [self setNeedsLayout];
+    [self updateButtonSelectionStates];
+}
+
 - (CGSize)intrinsicContentSize {
     int buttonSize = self.frame.size.height;
-    int width = (buttonSize + spacing) * stars;
+    int width = (buttonSize + _spacing) * _stars;
     return CGSizeMake(width, buttonSize);
 }
 
@@ -66,8 +71,7 @@ NSMutableArray *ratingButtons;
 // MARK: Button Action
 
 - (void)ratingButtonTapped:(UIButton*)button {
-    rating = [ratingButtons indexOfObject:button] + 1;
-    [self setNeedsLayout];
+    _rating = [ratingButtons indexOfObject:button] + 1;
     [self updateButtonSelectionStates];
     NSLog(@"Button pressed");
 }
@@ -76,7 +80,7 @@ NSMutableArray *ratingButtons;
     for (int index = 0; index < [ratingButtons count]; ++index) {
         // If the index of a button is less than the rating, that button should be selected.
         UIButton* button = ratingButtons[index];
-        button.selected = index < rating;
+        button.selected = index < _rating;
     }
 }
 

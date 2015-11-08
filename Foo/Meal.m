@@ -10,11 +10,6 @@
 
 @interface Meal ()
 
-// MARK: Properties
-@property NSString* name;
-@property UIImage* photo;
-@property int rating;
-
 @end
 
 @implementation Meal

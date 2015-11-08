@@ -13,6 +13,11 @@
 
 @interface Meal : NSObject
 
+// MARK: Properties
+@property NSString* name;
+@property UIImage* photo;
+@property int rating;
+
 - (id)init:(NSString*)name Photo:(UIImage*)photo Rating:(int)rating;
 
 @end

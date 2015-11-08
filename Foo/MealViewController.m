@@ -6,21 +6,20 @@
 //  Copyright © 2015 Erik. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MealViewController.h"
 #import "RatingControl.h"
 
-@interface ViewController ()
+@interface MealViewController ()
 
     // MARK: Properties
     @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
-    @property (weak, nonatomic) IBOutlet UILabel *mealNameLabel;
     @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
     @property (weak, nonatomic) IBOutlet RatingControl *ratingControl;
 
 
 @end
 
-@implementation ViewController
+@implementation MealViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,7 +36,7 @@
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    _mealNameLabel.text = textField.text;
+    
 }
 
 // MARK: UIImagePickerControllerDelegate

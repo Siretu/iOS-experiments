@@ -10,4 +10,10 @@
 
 @interface RatingControl : UIView
 
+// MARK: Properties
+
+@property(nonatomic) int rating;
+@property int spacing;
+@property int stars;
+
 @end
