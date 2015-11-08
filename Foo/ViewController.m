@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "RatingControl.h"
 
 @interface ViewController ()
 
@@ -14,6 +15,8 @@
     @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
     @property (weak, nonatomic) IBOutlet UILabel *mealNameLabel;
     @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
+    @property (weak, nonatomic) IBOutlet RatingControl *ratingControl;
+
 
 @end
 
@@ -57,11 +60,6 @@
 
 // MARK: Actions
 
-- (IBAction)setDefaultLabelText:(UIButton *)sender {
-    _mealNameLabel.text = @"Default text";
-    
-    
-}
 - (IBAction)selectImageFromPhotoLibrary:(UITapGestureRecognizer *)sender {
     // Hide the keyboard
     [_nameTextField resignFirstResponder];
