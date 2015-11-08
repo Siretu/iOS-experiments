@@ -13,6 +13,7 @@
 		4C607B261BE91106009E4D81 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C607B241BE91106009E4D81 /* Main.storyboard */; };
 		4C607B281BE91106009E4D81 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C607B271BE91106009E4D81 /* Assets.xcassets */; };
 		4C607B2B1BE91106009E4D81 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C607B291BE91106009E4D81 /* LaunchScreen.storyboard */; };
+		4C607B341BEFAA9D009E4D81 /* RatingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C607B331BEFAA9D009E4D81 /* RatingControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		4C607B271BE91106009E4D81 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C607B2A1BE91106009E4D81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C607B2C1BE91106009E4D81 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4C607B321BEFAA9D009E4D81 /* RatingControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingControl.h; sourceTree = "<group>"; };
+		4C607B331BEFAA9D009E4D81 /* RatingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +65,8 @@
 				4C607B1F1BE91106009E4D81 /* AppDelegate.m */,
 				4C607B211BE91106009E4D81 /* ViewController.h */,
 				4C607B221BE91106009E4D81 /* ViewController.m */,
+				4C607B321BEFAA9D009E4D81 /* RatingControl.h */,
+				4C607B331BEFAA9D009E4D81 /* RatingControl.m */,
 				4C607B241BE91106009E4D81 /* Main.storyboard */,
 				4C607B271BE91106009E4D81 /* Assets.xcassets */,
 				4C607B291BE91106009E4D81 /* LaunchScreen.storyboard */,
@@ -149,6 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C607B341BEFAA9D009E4D81 /* RatingControl.m in Sources */,
 				4C607B231BE91106009E4D81 /* ViewController.m in Sources */,
 				4C607B201BE91106009E4D81 /* AppDelegate.m in Sources */,
 				4C607B1D1BE91106009E4D81 /* main.m in Sources */,
