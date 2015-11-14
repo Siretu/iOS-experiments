@@ -16,4 +16,7 @@
 @property int spacing;
 @property int stars;
 
+@property NSMutableArray *ratingButtons;
+
+
 @end

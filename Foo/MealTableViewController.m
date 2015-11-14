@@ -32,8 +32,8 @@
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    // Display an Edit button in the navigation bar for this view controller.
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 }
 
 - (void)loadSamplemeals {
@@ -80,7 +80,8 @@
         cell.nameLabel.text = meal.name;
         cell.photoImageView.image = meal.photo;
         
-        cell.ratingControl.rating = meal.rating;\
+        cell.ratingControl.rating = meal.rating;
+        NSLog(@"Rating on row %ld: %d", (long)indexPath.row, cell.ratingControl.rating);
     }
     
     return cell;
@@ -90,35 +91,44 @@
     MealViewController* sourceViewController;
     Meal* meal;
     if ((sourceViewController = (MealViewController*) sender.sourceViewController, meal = sourceViewController.meal)) {
-        // Add a new meal.
-        NSIndexPath* newIndexPath = [NSIndexPath indexPathForRow:self.meals.count inSection:0];
-        [self.meals addObject:meal];
-        
-        [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation: UITableViewRowAnimationBottom];
-         
-        
+        NSIndexPath* selectedIndexPath;
+        if ((selectedIndexPath = self.tableView.indexPathForSelectedRow)) {
+            NSLog(@"Updated: %d", meal.rating);
+            // Update an existing meal.
+            self.meals[selectedIndexPath.row] = meal;
+            [self.tableView reloadRowsAtIndexPaths:@[selectedIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+            NSLog(@"Meals[%ld]: %d", (long)selectedIndexPath.row, [self.meals[selectedIndexPath.row] rating]);
+        } else {
+            // Add a new meal.
+            NSIndexPath* newIndexPath = [NSIndexPath indexPathForRow:self.meals.count inSection:0];
+            [self.meals addObject:meal];
+            
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation: UITableViewRowAnimationBottom];
+        }
     }
 }
 
-/*
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
+    
     return YES;
 }
-*/
 
-/*
+
+
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        [self.meals removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
 
 /*
 // Override to support rearranging the table view.
@@ -134,14 +144,26 @@
 }
 */
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier  isEqual: @"ShowDetail"]) {
+        MealViewController* mealDetailViewController = segue.destinationViewController;
+        MealTableViewCell* selectedMealCell = (MealTableViewCell*)sender;
+        if (selectedMealCell != nil) {
+            NSIndexPath *indexPath = [self.tableView indexPathForCell:selectedMealCell];
+            NSLog(@"%ld", (long)indexPath.row);
+            Meal* selectedMeal = self.meals[indexPath.row];
+            mealDetailViewController.meal = selectedMeal;
+        }
+        
+        
+    } else if ([segue.identifier  isEqual: @"AddItem"]) {
+        NSLog(@"Adding new meal.");
+    }
 }
-*/
+
 
 @end

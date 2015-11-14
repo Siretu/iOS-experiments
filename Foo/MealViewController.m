@@ -29,6 +29,14 @@
     // Handle the text field's user input through delegate callbacks.
     _nameTextField.delegate = self;
     
+    if ((self.meal = self.meal)) {
+        //self.meal = [[Meal alloc] init:self.meal.name Photo:self.meal.photo Rating:self.meal.rating];
+        self.navigationItem.title = self.meal.name;
+        self.nameTextField.text = self.meal.name;
+        self.photoImageView.image = self.meal.photo;
+        self.ratingControl.rating = self.meal.rating;
+    }
+
     // Enable the Save button only if the text field has a valid Meal name.
     [self checkValidMealName];
 }
@@ -77,7 +85,15 @@
 // MARK: Navigation
 
 - (IBAction)cancel:(UIBarButtonItem *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"Cancel");
+    
+    // Depending on style of presentation (modal or push presentation), this view controller needs to be dismissed in two different ways
+    UINavigationController* temp = (UINavigationController*) self.presentingViewController;
+    if (temp != nil) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -85,7 +101,6 @@
         NSString* name = self.nameTextField.text;
         UIImage* photo = self.photoImageView.image;
         int rating = self.ratingControl.rating;
-        
         // Set the meal to be passed to MealTableViewController after the unwind segue.
         _meal = [[Meal alloc] init:name Photo:photo Rating:rating];
 
