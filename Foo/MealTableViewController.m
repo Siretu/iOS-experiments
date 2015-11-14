@@ -7,6 +7,7 @@
 //
 
 #import "MealTableViewController.h"
+#import "MealViewController.h"
 #import "MealTableViewCell.h"
 #import "Meal.h"
 #import "RatingControl.h"
@@ -83,6 +84,20 @@
     }
     
     return cell;
+}
+
+- (IBAction)unwindToMealList:(UIStoryboardSegue *)sender {
+    MealViewController* sourceViewController;
+    Meal* meal;
+    if ((sourceViewController = (MealViewController*) sender.sourceViewController, meal = sourceViewController.meal)) {
+        // Add a new meal.
+        NSIndexPath* newIndexPath = [NSIndexPath indexPathForRow:self.meals.count inSection:0];
+        [self.meals addObject:meal];
+        
+        [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation: UITableViewRowAnimationBottom];
+         
+        
+    }
 }
 
 /*

@@ -10,4 +10,6 @@
 
 @interface MealTableViewController : UITableViewController
 
+- (void)unwindToMealList:(UIStoryboardSegue *)sender;
+
 @end
