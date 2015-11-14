@@ -11,7 +11,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Meal : NSObject
+@interface Meal : NSObject<NSCoding>
 
 // MARK: Properties
 @property NSString* name;

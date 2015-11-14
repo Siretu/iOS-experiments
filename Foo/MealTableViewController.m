@@ -27,8 +27,14 @@
     [super viewDidLoad];
     NSLog(@"viewDidLoad");
     self.meals = [[NSMutableArray alloc] init];
-    [self loadSamplemeals];
     
+    NSArray* savedMeals;
+    if ((savedMeals = [self loadMeals])) {
+        [self.meals addObjectsFromArray:savedMeals];
+    } else {
+        
+        [self loadSamplemeals];
+    }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -105,6 +111,9 @@
             
             [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation: UITableViewRowAnimationBottom];
         }
+        
+        // Save the meals.
+        [self saveMeals];
     }
 }
 
@@ -124,6 +133,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         [self.meals removeObjectAtIndex:indexPath.row];
+        [self saveMeals];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -165,5 +175,21 @@
     }
 }
 
+
+- (void)saveMeals {
+    NSURL* DocumentsDirectory = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
+    NSURL* ArchiveURL = [DocumentsDirectory URLByAppendingPathComponent:@"meals"];
+    BOOL isSuccessfulSave = [NSKeyedArchiver archiveRootObject:self.meals toFile:ArchiveURL.path];
+    
+    if (!isSuccessfulSave) {
+        NSLog(@"Failed to save meals...");
+    }
+}
+
+- (NSArray*)loadMeals {
+    NSURL* DocumentsDirectory = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
+    NSURL* ArchiveURL = [DocumentsDirectory URLByAppendingPathComponent:@"meals"];
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:ArchiveURL.path];
+}
 
 @end
